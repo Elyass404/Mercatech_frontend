@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
+import Navbar from '../components/Navbar';
 
 export default function Products() {
     const [products, setProducts] = useState([]);
@@ -24,6 +25,10 @@ export default function Products() {
 
 
     return (
+      <div className="min-h-screen bg-gray-100">
+          <Navbar />
+
+      
         <div className="p-8 max-w-6xl mx-auto">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-gray-800">Produits</h1>
@@ -83,6 +88,7 @@ export default function Products() {
                     Suivant
                 </button>
             </div>
+        </div>
         </div>
     );
 }
