@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Products from './pages/Products';
 import Login from './pages/Login'; 
 import ProtectedRoute from './components/ProtectedRoute';
+import CreateProduct from './pages/CreateProduct';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/products" element={<ProtectedRoute>
                 <Products />
               </ProtectedRoute>} />
+              <Route path="/products/new" element={<ProtectedRoute><CreateProduct /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>
