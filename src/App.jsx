@@ -14,6 +14,7 @@ import Clients from './pages/Clients';
 import CreateClient from './pages/CreateClient';
 import EditClient from './pages/EditClient';
 import ClientDetails from './pages/ClientDetails';
+import Orders from './pages/Orders';
 
 function App() {
   return (
@@ -78,6 +79,16 @@ function App() {
             element={
               <ProtectedRoute>
                 <ClientDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Orders routes */}
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
               </ProtectedRoute>
             }
           />
