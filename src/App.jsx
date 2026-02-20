@@ -15,6 +15,7 @@ import CreateClient from './pages/CreateClient';
 import EditClient from './pages/EditClient';
 import ClientDetails from './pages/ClientDetails';
 import Orders from './pages/Orders';
+import OrderDetails from './pages/orderDetails';
 
 function App() {
   return (
@@ -92,6 +93,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/orders/:id" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>
