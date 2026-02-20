@@ -8,21 +8,36 @@ export default function Products() {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  useEffect(() => {
-    // 1. Define the async function INSIDE the effect
-    const fetchProducts = async () => {
+  // 1. Moved outside so we can call it after deleting a product!
+  const fetchProducts = async () => {
       try {
         const data = await productService.getAllProducts(page, 10);
-        setProducts(data.content);
+        const activeProducts = data.content.filter(p => !p.isDeleted && !p.deleted);
+        
+        setProducts(activeProducts);
         setTotalPages(data.totalPages);
       } catch (error) {
-        console.error('Erreur lors de la récupération des produits:', error);
+        console.error('Erreur:', error);
       }
     };
 
-    // 2. Call it immediately
+  useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  // 2. Added the Delete function
+  const handleDelete = async (id) => {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+      try {
+        await productService.deleteProduct(id);
+        fetchProducts(); // Refresh the table automatically
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+        alert('Impossible de supprimer ce produit.');
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -60,10 +75,18 @@ export default function Products() {
                   <td className="p-4">{product.unitPrice.toFixed(2)}</td>
                   <td className="p-4">{product.stock}</td>
                   <td className="p-4 text-right space-x-3">
-                    <button className="text-blue-500 hover:text-blue-700">
+                    {/* 3. Updated Edit Link and Delete Button */}
+                    <Link
+                      to={`/products/${product.id}/edit`}
+                      className="text-blue-500 hover:text-blue-700 font-medium"
+                    >
                       Éditer
-                    </button>
-                    <button className="text-red-500 hover:text-red-700">
+                    </Link>
+
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="text-red-500 hover:text-red-700 font-medium"
+                    >
                       Supprimer
                     </button>
                   </td>
