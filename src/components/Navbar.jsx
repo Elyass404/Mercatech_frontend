@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/authService';
 
 export default function Navbar() {
@@ -19,8 +19,14 @@ export default function Navbar() {
 
     return (
         <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center mb-8">
-            <div className="text-xl font-bold text-blue-600 tracking-wide">
-                MercaTech
+            <div className="flex items-center space-x-8">
+                <div className="text-xl font-bold text-blue-600 tracking-wide">
+                    MercaTech
+                </div>
+                <div className="space-x-4 hidden md:flex">
+                    <Link to="/products" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Produits</Link>
+                    <Link to="/clients" className="text-gray-600 hover:text-blue-600 font-medium transition-colors">Clients</Link>
+                </div>
             </div>
             
             <div className="flex items-center space-x-4">
