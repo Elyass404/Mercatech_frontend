@@ -30,8 +30,14 @@ export default function Orders() {
             await orderService.updateOrderStatus(orderId, newStatus);
             fetchOrders(); // Refresh table to show new status
         } catch (err) {
-            console.error("Erreur lors de la mise à jour du statut:", err);
-            alert("Impossible de mettre à jour le statut.");
+            // Let's capture the exact message from Spring Boot!
+            const backendMessage = err.response?.data?.message || err.response?.data || "Erreur inconnue";
+            console.error("Erreur détaillée du backend:", backendMessage);
+            
+            alert(`Impossible de mettre à jour le statut.\nRaison : ${backendMessage}`);
+            
+            // Re-fetch orders so the dropdown resets to its original value
+            fetchOrders(); 
         }
     };
 
@@ -96,8 +102,8 @@ export default function Orders() {
                                         >
                                             <option value="PENDING">En attente</option>
                                             <option value="CONFIRMED">Confirmée</option>
-                                            <option value="DELIVERED">Livrée</option>
-                                            <option value="CANCELED">Annulée</option>
+                                            <option value="CANCELED">Annuler</option>
+                                            <option value="REJECTED">Rejeter</option>
                                         </select>
                                     </td>
                                     <td className="p-4 text-right">

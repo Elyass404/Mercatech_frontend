@@ -16,6 +16,7 @@ import EditClient from './pages/EditClient';
 import ClientDetails from './pages/ClientDetails';
 import Orders from './pages/Orders';
 import OrderDetails from './pages/orderDetails';
+import CreateOrder from './pages/CreateOrder';
 
 function App() {
   return (
@@ -93,6 +94,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/orders/new" element={<ProtectedRoute><CreateOrder /></ProtectedRoute>} />
 
           <Route path="/orders/:id" element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} />
         </Routes>
