@@ -1,9 +1,19 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import Products from './pages/Products';
-import Login from './pages/Login'; 
+import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateProduct from './pages/CreateProduct';
+import EditProduct from './pages/EditProduct';
+import Clients from './pages/Clients';
+import CreateClient from './pages/CreateClient';
+import EditClient from './pages/EditClient';
+import ClientDetails from './pages/ClientDetails';
 
 function App() {
   return (
@@ -13,10 +23,64 @@ function App() {
           {/* Automatically redirect the home page to the login screen */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<ProtectedRoute>
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
                 <Products />
-              </ProtectedRoute>} />
-              <Route path="/products/new" element={<ProtectedRoute><CreateProduct /></ProtectedRoute>} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/new"
+            element={
+              <ProtectedRoute>
+                <CreateProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditProduct />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Client Routes - ADD THESE! */}
+          <Route
+            path="/clients"
+            element={
+              <ProtectedRoute>
+                <Clients />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/clients/new"
+            element={
+              <ProtectedRoute>
+                <CreateClient />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/clients/:id/edit"
+            element={
+              <ProtectedRoute>
+                <EditClient />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/clients/:id"
+            element={
+              <ProtectedRoute>
+                <ClientDetails />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>
